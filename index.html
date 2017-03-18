@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Recursion Lecture</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/black.css">
@@ -24,8 +24,578 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section data-markdown data-background-color="#ffffff" data-background-image="assets/pascals_triangle.gif">
+					<script type="text/template">
+						## Recursion
+
+						-Jay Looney
+
+						<!-- It would be nice if I could get the fontawesome icons -->
+						[github](https://www.github.com/zenware/)
+						[stackoverflow](https://www.stackoverflow.com/u/:uid)
+						[linkedin](https://www.linkedin.com/in/jaylooney)
+						[twitter](https://www.twitter.com/jaymlooney)
+
+						[jay.m.looney@gmail.com](mailto:jay.m.looney@gmail.com)
+						<aside class="notes">
+							Good evening everyone, I'm Jay Looney &amp; I'm here to talk about recursion.
+						</aside>
+					</script>
+				</section>
+				<section>
+					What the heck is recursion?
+					<aside class="notes">
+						Poll the room for ideas, repeat each idea. Write them down or remember them.
+					</aside>
+				</section>
+				<section>
+					In order to understand recursion, one must first understand recursion.
+					<aside class="notes">
+						Ask the room about some recursive acronyms.
+						Has anyone ever heard of GNU, Nagios, PHP
+						Gnu's Not Unix
+						Nagios Ain't Gonna Insist on Sainthood
+						PHP Hypertext Preprocessor - Need a reference for this
+					</aside>
+				</section>
+				<section>
+					<section>
+						<p>GNU</p>
+						<p class="fragment">Logo Image</p>
+						<small class="fragment">Reference</small>
+						<aside class="notes">
+							These are all accurate I promise, I'll publish some updates ASAP
+							with references for each of them!
+						</aside>
+					</section>
+					<section>
+						<p>PHP</p>
+						<p class="fragment">Logo Image</p>
+						<small class="fragment">Reference</small>
+					</section>
+					<section>
+						<p>Nagios</p>
+						<p class="fragment">Logo Image</p>
+						<small class="fragment">
+							Galstad, Ethan (2009-08-24).
+							<a href="#">"FAQ Database: Miscellaneous: What does Nagios mean?"</a>.
+							Nagios: Frequently Asked Questions.
+							Nagios Enterprises, LLC.
+							Retrieved 2014-06-02.
+							The official meaning is that N.A.G.I.O.S. is a recursive acronym which stands for "Nagios Ain't Gonna Insist On Sainthood".
+						</small>
+					</section>
+				</section>
+				<section>
+					<a href="lmgtfy.com?q=recursion"><img src="assets/google_search.png" alt="recursion google search"></img></a>
+					<aside class="notes">
+						Most of the content which currently exists is an in-joke for those
+						who already get it.
+					</aside>
+				</section><!-- Intro Section -->
+
+				<section>
+					<p>Factorial Function</p>
+					\begin{aligned}
+					\operatorname{fact}(n) = n \cdot \operatorname{fact}(n)
+					\end{aligned}
+				</section>
+				<section>
+					<section>
+						<p>Lets solve for</p>
+						\begin{aligned}
+						\operatorname{fact}(2)
+						\end{aligned}
+						<aside class="notes">
+							To begin solving this problem we have to substitute for each
+							occurrence of n in the definition of fact.
+						</aside>
+					</section>
+					<section>
+						<p>The first step</p>
+						\begin{aligned}
+						\operatorname{fact}(2) = 2 \cdot \operatorname{fact}(2-1)
+						\end{aligned}
+						<aside class="notes">
+							At this time we don't know the result of evaluating fact(2-1)
+							but we do know the result of evaluating 2 - 1
+						</aside>
+					</section>
+					<section>
+						\begin{aligned}
+						\operatorname{fact}(2) = 2 \cdot \operatorname{fact}(1)
+						\end{aligned}
+						<aside class="notes">
+							Now we can start evaluating fact(1), can someone explain what the
+							next step will look like?
+						</aside>
+					</section>
+					<section>
+						\begin{aligned}
+						\operatorname{fact}(2) &= 2 \cdot \operatorname{fact}(1) \\
+						\operatorname{fact}(1) &= 1 \cdot \operatorname{fact}(1 - 1)
+						\end{aligned}
+						<aside class="notes">
+							One minus one is obviously zero, so now we get fact(0)
+						</aside>
+					</section>
+					<section>
+						\begin{aligned}
+						\operatorname{fact}(2) &= &2 \cdot \operatorname{fact}(1) \\
+						\operatorname{fact}(1) &= &1 \cdot \operatorname{fact}(0) \\
+						\operatorname{fact}(0) &= &...
+						\end{aligned}
+						<aside class="notes">
+							And what happens when we evaluate fact(0)
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<p>Factorial Function</p>
+						\begin{aligned}
+						\operatorname{fact}(n) = n \cdot \operatorname{fact}(n)
+						\end{aligned}
+					</section>
+					<section>
+						<p>Improved Factorial Function</p>
+						\begin{aligned}
+						\operatorname{fact}(n) &=
+						n \cdot \operatorname{fact}(n) \\
+						\operatorname{fact}(1) &= 1
+						\end{aligned}
+					</section>
+				</section>
+				<section>
+					<section>
+						Solve For
+						<p>
+							\begin{aligned}
+							\operatorname{fact}(3)
+							\end{aligned}
+						</p>
+						<aside class="notes">
+							When we look at fact(3), we look back at the function definition
+							and replace each instance of n with 3, so you get
+							fact(3) = 3 * fact(3-1)
+						</aside>
+					</section>
+					<section>
+						\begin{aligned}
+						\operatorname{fact}(3) = 3 \cdot \operatorname{fact}(2)
+						\end{aligned}
+						<aside class="notes">
+							We can't continue solving because we don't know what fact(2) is,
+							so we have to evaluate fact(2)
+						</aside>
+					</section>
+					<section>
+						\begin{aligned}
+						\operatorname{fact}(3) &= 3 \cdot \operatorname{fact}(2) \\
+						\operatorname{fact}(2) &= 2 \cdot \operatorname{fact}(1)
+						\end{aligned}
+						<aside class="notes">
+							Here we still have to evaluate, fact(1) before we can continue
+						</aside>
+					</section>
+					<section>
+						\begin{aligned}
+						\operatorname{fact}(3) &= 3 \cdot \operatorname{fact}(2) \\
+						\operatorname{fact}(2) &= 2 \cdot \operatorname{fact}(1) \\
+						\operatorname{fact}(1) &= 1
+						\end{aligned}
+						<aside class="notes">
+							fact(1) is just 1, 1 is our base case, and so we can begin to
+							collapse values and feel like we're moving closer to a solution
+						</aside>
+					</section>
+					<section>
+						\begin{aligned}
+						\operatorname{fact}(3) &= 3 \cdot \operatorname{fact}(2) \\
+						\operatorname{fact}(2) &= 2 \cdot 1
+						\end{aligned}
+					</section>
+					<section>
+						\begin{aligned}
+						\operatorname{fact}(3) = 3 \cdot 2
+						\end{aligned}
+					</section>
+					<section>
+						\begin{aligned}
+						\operatorname{fact}(3) = 6
+						\end{aligned}
+					</section>
+				</section>
+				<section>
+					<section>
+						<p>We started with this</p>
+						\begin{aligned}
+						\operatorname{fact}(n) = n \cdot \operatorname{fact}(n)
+						\end{aligned}
+					</section>
+					<section>
+						<p>Worked our way here</p>
+						\begin{aligned}
+						\operatorname{fact}(n) &=
+						n \cdot \operatorname{fact}(n) \\
+						\operatorname{fact}(1) &= 1
+						\end{aligned}
+						<p class="fragment">Can you think of any other improvements?</p>
+						<aside class="notes">
+							Can anyone think of another way we can improve it?
+							Limiting the scope of numbers it's defined for
+							Defining 0 to return 1 (enables neat tricks in other maths)
+						</aside>
+					</section>
+					<section>
+						\begin{aligned}
+						\operatorname{fact}(n) =
+						\begin{cases}
+						1 & \mbox{if } n = 0 \\
+						n \cdot \operatorname{fact}(n-1) & \mbox{if } n > 0 \\
+						\end{cases}
+						\end{aligned}
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+							<!-- .slide: data-background="#aaaaff" -->
+							Code Definition
+
+							```javascript
+							/*
+							 * It's more important in software than in math for functions
+							 * to have descriptive names.
+							 */
+							function factorial(n) {
+								if (n < 1) {
+									return 1
+								}
+								return n * factorial(n - 1)
+							}
+							console.log(factorial(4))
+							```
+							Note:
+							I really hope I can get the cool "Magic Move" like transition from
+							keynote to work in these slides.
+						</script>
+					</section>
+					<section>
+						\begin{aligned}
+						\zeta(s) = \sum _{n=1}^{\infty}{\frac{1}{n^{s}}}
+						\end{aligned}
+						<aside class="notes">
+							Define the Riemann Zeta function here to drop in if anyone wants
+							to see some weird math, and explain why programming should be
+							more accessible than that.
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+							<!-- .slide: data-background="#aaaaff" -->
+							Solve For
+
+							```javascript
+							console.log(factorial(4))
+							```
+							Note:
+							Work through each step as a computer would,
+							showing line by line code execution,
+							and building the callstack.
+							I bet I can find some cool AF in-browser code interpreter for this.
+							For now, work this out on a whiteboard.
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							```javascript
+							function factorial(n) {
+								if (n < 1) {
+									return 1
+								}
+								return n * factorial(n - 1)
+							}
+							```
+						</script>
+					</section>
+				</section><!-- First Example Section -->
+
+				<section>
+					<p>What is a stack?</p>
+					<aside class="notes">
+						Same thing here, use the stack you created on the board to walk through this.
+						Still hoping I can find a cool web tool that does the vis I want, otherwise I'll make it.
+						Walk through collapsing the callstack and evaluate the function.
+						Explain the properties of a stack at the same time.
+					</aside>
+				</section>
+
+				<section>
+					<section>
+						<p>Where does recursion appear in programs?</p>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							Data Structures
+
+							```c
+							typedef struct node {
+							    int value;
+							    struct node *next;
+							} node_t;
+							```
+							</div>
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							Operations on Recursive Data Structures
+
+							```python
+							def f_tree(tree):
+								f(tree.value)
+								f_forest(tree.children)
+
+							def f_forest(forest):
+								for tree in forest:
+									f_tree(tree)
+							```
+							Note:
+							Applying a function to the value of each tree in a forest.
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							Merge Sort
+							```javascript
+							function merge_sort(a) {
+							  if (a.length <= 1) {
+							    return a
+							  }
+
+							  var left  = [],
+							      right = []
+
+							  for(var i = 0; i < a.length; i++) {
+							    if (i < (a.length / 2)) {
+							      left.push(a[i])
+							    } else {
+							      right.push(a[i])
+							    }
+							  }
+
+							  left = merge_sort(left)
+							  right = merge_sort(right)
+
+							  return merge(left, right)
+							}
+							```
+							Note:
+							Scroll through the code, if there is too much code to fit the window.
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							Merge
+							```javascript
+							function merge(left, right) {
+							  var result = []
+
+							  while (left.length > 0 && right.length > 0) {
+							    if (left[0] <= right[0]) {
+							      result.push(left.shift())
+							    } else {
+							      result.push(right.shift())
+							    }
+							  }
+
+							  while (left.length > 0) {
+							    result.push(left.shift())
+							  }
+
+							  while (right.length > 0) {
+							    result.push(right.shift())
+							  }
+
+							  return result
+							}
+							```
+							Note:
+							This is necessary only to complete the functionality of the merge_sort code.
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							```javascript
+							a = [5, 16, 23, 7, 2, 8, 1, 8, 2, 34, 9, 2, 9, 3]
+							b = merge_sort(a)
+							console.log("Unsorted:", a)
+							console.log("Sorted:", b)
+							```
+						</script>
+					</section>
+					<section>
+						<p>Visualize merge sort</p>
+						<aside class="notes">
+							It would be awesome if I could use dot/graphviz and somehow animate
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<p>Mutual Recursion</p>
+						<aside class="notes">
+							Does anyone have an idea of what this might be?
+						</aside>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							```javascript
+							function is_even(n) {
+								if (n == 0) {
+									return true;
+								}
+								return is_odd(Math.abs(n)-1)
+							}
+
+							function is_odd(n) {
+								if (n == 0) {
+									return false;
+								}
+								return is_even(Math.abs(n)-1)
+							}
+
+							console.log("Is 1 even?", is_even(1))
+							console.log("Is 3 odd?", is_odd(3))
+							```
+							Note:
+							This example is unbelievably contrived.
+							Mutual recursion is when a function indirectly calls itself.
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							Operations on Recursive Data Structures
+
+							```python
+							def f_tree(tree):
+								f(tree.value)
+								f_forest(tree.children)
+
+							def f_forest(forest):
+								for tree in forest:
+									f_tree(tree)
+							```
+							Note:
+							Applying a function to the value of each tree in a forest.
+						</script>
+					</section>
+				</section>
+
+				<section>
+					<section>Tail Call Optimization</section>
+					<section>
+						<p>What the heck is tail call?</p>
+					</section>
+					<section>Explain a tail call</section>
+					<section data-markdown>
+						<script type="text/template">
+						<!-- .slide: data-background="#ffaaaa" -->
+						Tail calls of signature
+						```javascript
+						return f(...)
+						```
+						can be optimized
+						</script>
+						<aside class="notes">
+							Explain/Whiteboard the reason this means you can reuse the same
+							stack frame.
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<p>Tail Recursion</p>
+						<aside class="notes">
+							Tail Recursion is when you recurse with the result of the evaluation
+							of the recursive function being the final and self contained call.
+						</aside>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							```javascript
+							function factorial(n) {
+								if (n < 1) {
+									return 1
+								}
+								return n * factorial(n-1)
+							}
+							```
+							Note:
+							The examples we worked through earlier shows that we need a stack
+							frame for each call to factorial, and we have to wait for the
+							base case to be evaluated before we can start collapsing the stack
+							That means we need N stack frames before we can even begin
+							solving the problem. For very large N, we'll exhaust the stack and
+							encouter a "Stack Overflow" error.
+						</script>
+					</section>
+					<section>
+						<p>Tail Recursion Elimination</p>
+						<aside class="notes">
+							This uses TCO to phenomenal effect, and practically turns recursion
+							into iteration. You don't have to hold onto partial evaluations.
+						</aside>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							<!-- .slide: data-background="#aaffaa" -->
+							## Tail Recursive Factorial
+							```javascript
+							function tail_factorial(n, result=1) {
+								if (n < 1) {
+									return result
+								}
+								return tail_factorial(n-1, result*n)
+							}
+							console.log(tail_factorial(3))
+							```
+							Note:
+							Walk through this and show that it can reuse stack frames.
+						</script>
+					</section>
+					<section>
+						If the compiler is going to optimize recursion into iteration anyways, why bother?
+						<aside class="notes">
+							Maintainability, Provability, some problems can only be solved with recursion.
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<h2>Further Reading</h2>
+					<p>How to Design Programs</p>
+					<p>The Little Schemer</p>
+					<p>Structure and Interpretation of Computer Programs</p>
+				</section>
+
+				<section>
+					<p>Slides, Notes, Errata</p>
+					<p>Available March 18th and Later</p>
+					<p><a href="https://github.com/zenware/lec-recursion">https://github.com/zenware/lec-recursion</a></p>
+				</section>
+
+				<section>
+					<!-- .slide: data-background="#aaffaa" -->
+					“If you want to build a ship, don't drum up people to collect wood and don't assign them tasks and work, but rather teach them to long for the endless immensity of the sea.”
+					–Antoine de Saint-Exupery
+				</section>
 			</div>
 		</div>
 
@@ -39,6 +609,8 @@
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
+					// I need network to pull in MathJax
+					{ src: 'plugin/math/math.js', async: true },
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
